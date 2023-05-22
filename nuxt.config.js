@@ -1,4 +1,4 @@
-const { NODE_ENV, HOST, PORT, API_HOST_UPN, API_HOST, API_HOST_V2, API_HOST_V3, API_HOST_V4, API_HOST_V5, API_HOST_V6, API_HOST_V7, API_HOST_V9, DOMAIN, TOKEN_KEY, BASE, BASE_BE } = process.env
+const { NODE_ENV, HOST, PORT, API_HOST_UPN, API_HOST, DOMAIN, TOKEN_KEY, BASE, BASE_BE } = process.env
 
 import colors from 'vuetify/es5/util/colors'
 
@@ -72,18 +72,14 @@ export default {
   },
 
   proxy: {
-    [`${BASE_BE}api/v2/`]: {
-      target: API_HOST_V2,
-      pathRewrite: { [`^${BASE_BE}api/`]: '/' },
-    },
     [`${BASE_BE}api/`]: {
       target: API_HOST,
       pathRewrite: { [`^${BASE_BE}api/`]: '/v1/' },
     },
-    [`${BASE_BE}files/`]: {
-      target: API_HOST,
-      pathRewrite: { [`^${BASE_BE}files/`]: '/files/' },
-    },
+    // [`${BASE_BE}files/`]: {
+    //   target: API_HOST,
+    //   pathRewrite: { [`^${BASE_BE}files/`]: '/files/' },
+    // },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

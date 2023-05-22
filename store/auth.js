@@ -5,8 +5,8 @@ import Menu from "~/api/menu";
 const states = () => {
   return {
     user: {
-      name: "Bening Gumilar",
-      username: "bening",
+      name: "Insan Mulia",
+      username: "superadmin",
       namaProdi: "INFORMATIKA",
       role: {
         id: "HA01",
