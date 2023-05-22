@@ -1,0 +1,17 @@
+# version: '3.3'
+# services:
+#   api:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: silatuhrami-fe
+#     ports:
+#       - 31000:31000
+version: '3.3'
+services:
+  api:
+    image: 525245435/silaturahmi-fe:v24
+    container_name: silaturahmi-fe
+    restart: unless-stopped
+    ports:
+      - 31111:31111

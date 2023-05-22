@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: silaturahmi-fe
+  namespace: fe
+  annotations:
+    description: Ini Adalah Aplikasi Silaturahmi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: silaturahmi-fe
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      annotations:
+        description: Container WEB Silaturahmi
+      labels:
+        app: silaturahmi-fe
+    spec:
+      containers:
+      - image: 525245435/silaturahmi-fe:v6
+        name: silaturahmi-fe
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 31000
+        resources:
+            limits:
+              cpu: 400m
+              memory: 200Mi
+            requests:
+              cpu: 300m
+              memory: 100Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: silaturahmi-fe-svc
+  namespace: fe
+  labels:
+    app: silaturahmi-fe
+  annotations:
+    description: Ini Adalah Service WEB Silaturahmi
+spec:
+  type: NodePort
+  ports:
+  - name: "31000"
+    port: 31000
+    # -- 31000 -32000
+    nodePort: 31000
+    targetPort: 31000
+  selector:
+    app: silaturahmi-fe
+status:
+  loadBalancer: {}
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: silaturahmi-fe-hpa
+  namespace: fe
+spec:
+  minReplicas: 3
+  maxReplicas: 10
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: silaturahmi-fe
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 75
