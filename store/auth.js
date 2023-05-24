@@ -8,6 +8,7 @@ const states = () => {
       name: "Insan Mulia",
       username: "superadmin",
       namaProdi: "INFORMATIKA",
+      idSiamikMahasiswa: "f7c83c44-f9e4-11ed-8596-e344cc75ea55",
       role: {
         id: "HA01",
         name: "SUPERADMIN",

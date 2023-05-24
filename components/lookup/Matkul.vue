@@ -5,7 +5,7 @@
         <v-card-title
           style="color: green; padding-top: 12px; padding-bottom: 12px"
         >
-          <span style="font-size: 20px; padding-right: 10px">Lookup Siswa</span>
+          <span style="font-size: 20px; padding-right: 10px">Lookup Mata Kuliah</span>
           <v-spacer></v-spacer>
           <v-btn icon @click="closeLookup()">
             <v-icon>mdi-close</v-icon>
@@ -62,30 +62,22 @@ export default {
       selected: [],
       headers: [
         {
-          text: "No",
-          value: "no",
-          align: "center",
-          sortable: false,
-          class: "th-head",
-          width: "3%",
-        },
-        {
-          text: "Nama",
-          value: "nama",
-          sortable: true,
-          class: "th-head",
-          width: "20%",
-        },
-        {
-          text: "Tingkat Kelas",
-          value: "kelas",
+          text: "Kode",
+          value: "kodeMatkul",
           sortable: true,
           class: "th-head",
           width: "10%",
         },
         {
-          text: "Nama Kelas",
-          value: "namaKelas",
+          text: "Nama",
+          value: "namaMatkul",
+          sortable: true,
+          class: "th-head",
+          width: "20%",
+        },
+        {
+          text: "SKS",
+          value: "sks",
           sortable: true,
           class: "th-head",
           width: "10%",
@@ -93,7 +85,7 @@ export default {
       ],
       search: "",
       jumlah_sks: 0,
-      defaultSortBy: "nama",
+      defaultSortBy: "namaMatkul",
       sortBy: [this.defaultSortBy],
       sortDesc: [false],
       itemsPerPage: 10,
@@ -108,7 +100,7 @@ export default {
         q: "",
         pageSize: PAGE_SIZE,
         pageNumber: 1,
-        sortBy: "nama",
+        sortBy: "namaMatkul",
         sortType: "asc",
       },
       isLoading: false,
@@ -126,14 +118,14 @@ export default {
 
   computed: {},
   methods: {
-    loadSiswa() {
+    loadMatkul() {
       this.loadAll();
       this.dialog = true;
     },
 
     async loadAll() {
       this.isLoading = true;
-      this.$siswaService()
+      this.$mataKuliahService()
         .retrieve(this.filter)
         .then((res) => {
           this.isLoading = false;

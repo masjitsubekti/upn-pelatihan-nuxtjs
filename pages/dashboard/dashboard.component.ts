@@ -1,5 +1,4 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-
 @Component({
   layout: "admin",
 })
